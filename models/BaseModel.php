@@ -16,6 +16,7 @@ class BaseModel {
     }
 
     public function delete($id) {
+
     }
 
 }
