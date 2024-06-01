@@ -57,5 +57,12 @@ class BaseController {
         $this->model->delete($id);
         $this->index();
     }
+    /**
+     * This method is used to display the form for updating a record.
+     */
+    public function update($id,$data){
+        $this->model->update($id,$data);
+        $this->index();
+    }
 }
 
