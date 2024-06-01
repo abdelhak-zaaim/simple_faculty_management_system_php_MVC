@@ -10,6 +10,9 @@ class BaseView {
     }
 
     public function render($view) {
+        include 'views/' . $view . '.php';
 
     }
+
+
 }
