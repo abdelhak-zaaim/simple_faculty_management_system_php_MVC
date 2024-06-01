@@ -6,15 +6,26 @@ class Auth {
         $this->db = $db;
     }
 
-    public function register($username, $password) {
-        $query = "INSERT INTO users (username, password) VALUES (?, ?)";
+    public function register($username, $password,$fName,$lName) {
+        // username is the email address
+
+        // Hash the password using password_hash function and PASSWORD_DEFAULT algorithm
+        $password = password_hash($password, PASSWORD_DEFAULT);
+
+        $query = "INSERT INTO users (email, password, l_name,f_name) VALUES (?, ?)";
         $stmt = $this->db->getConnection()->prepare($query);
-        $stmt->bind_param("ss", $username, $password);
+        // we used bind_param to bind the parameters to the query
+        // s means string
+        $stmt->bind_param("ssss", $username, $password,$fName,$lName);
         $stmt->execute();
         $stmt->close();
     }
 
 public function login($username, $password) {
+    // Check if the user exists in the database
+    // Use prepared statements to avoid SQL injection
+    // hash the password using password_hash function and PASSWORD_DEFAULT algorithm
+    $password = password_hash($password, PASSWORD_DEFAULT);
     $query = "SELECT * FROM users WHERE username = ? AND password = ?";
     $stmt = $this->db->getConnection()->prepare($query);
     $stmt->bind_param("ss", $username, $password);

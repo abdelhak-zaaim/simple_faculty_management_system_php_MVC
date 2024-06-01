@@ -7,12 +7,14 @@ class BaseModel {
     }
 
     public function getAll() {
+
     }
 
     public function getById($id) {
     }
 
     public function save($data) {
+
     }
 
     public function delete($id) {

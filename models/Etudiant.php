@@ -14,7 +14,6 @@ class Etudiant extends BaseModel
         $this->codeE = $codeE;
         $this->note = $note;
         $this->filiere = $filiere;
-
     }
 
 
@@ -29,6 +28,7 @@ class Etudiant extends BaseModel
     /**
      * @param mixed|null $codeE
      */
+
     public function setCodeE($codeE)
     {
         $this->codeE = $codeE;
@@ -45,6 +45,7 @@ class Etudiant extends BaseModel
     /**
      * @param mixed|null $fName
      */
+
     public function setFName($fName)
     {
         $this->fName = $fName;
@@ -61,6 +62,7 @@ class Etudiant extends BaseModel
     /**
      * @param mixed $filiere
      */
+
     public function setFiliere($filiere)
     {
         $this->filiere = $filiere;
@@ -69,6 +71,7 @@ class Etudiant extends BaseModel
     /**
      * @return mixed|null
      */
+
     public function getId()
     {
         return $this->id;

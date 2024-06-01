@@ -38,11 +38,14 @@ class Salle extends BaseModel
     }
 
     /**
-     * @param mixed|null $name
+     * @param mixed|string $name
      */
     public function setName($name)
     {
+        if (is_string($name))
         $this->name = $name;
+        else
+            throw new Exception('Name must be a string');
     }
 
     /**
