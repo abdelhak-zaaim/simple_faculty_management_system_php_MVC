@@ -1,15 +1,25 @@
 <?php
-require_once 'core/Router.php';
-require_once 'core/Auth.php';
-require_once 'config/Modules.php';
+require_once 'config/database.php';
+require_once 'models/BaseModel.php';
+require_once 'controllers/BaseController.php';
 
-// Create an instance of the router
-$router = new Router();
+$modules = require 'config/modules.php';
+$module = isset($_GET['module']) ? $_GET['module'] : null;
+$action = isset($_GET['action']) ? $_GET['action'] : 'index';
+$id = isset($_GET['id']) ? $_GET['id'] : null;
 
-// Get the URL from the request
-$url = $_SERVER['REQUEST_URI'];
-
-// Route the request
-$router->route($url);
-
-// Rest of your code...
+if ($module && array_key_exists($module, $modules)) {
+    $controller = new BaseController($module);
+    if (method_exists($controller, $action)) {
+        if ($id) {
+            $controller->$action($id);
+        } else {
+            $controller->$action();
+        }
+    } else {
+        echo "Action not found!";
+    }
+} else {
+    echo "Module not found!";
+}
+?>

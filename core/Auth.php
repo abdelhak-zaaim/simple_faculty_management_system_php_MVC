@@ -43,15 +43,20 @@ public function login($username, $password) {
     return $user;
 }
     public function logout() {
-
-
+        // Destroy the session
+        session_start();
+        session_destroy();
     }
 
     public function check() {
-        // Use $this->db to interact with the database
+        // Check if the user is authenticated
+        session_start();
+        return isset($_SESSION['user']);
     }
 
     public function user() {
-        // Use $this->db to interact with the database
+        // Get the authenticated user data
+        session_start();
+        return $_SESSION['user'];
     }
 }

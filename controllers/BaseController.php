@@ -1,5 +1,5 @@
 <?php
-require_once 'BaseModel.php';
+require_once '../models/BaseModel.php';
 /**
  * This is the base controller class. All other controllers will extend this class.
  * It contains the basic CRUD methods.
@@ -9,60 +9,62 @@ require_once 'BaseModel.php';
  * @function index
  * @function show
  * @function create
+ * @function edit
+ * @function update
  * @function store
  * @function delete
  */
-class BaseController {
+class BaseController
+{
     protected $model;
+    protected $module;
 
-    /**
-     * This method is used to instantiate the model.
-     */
-    public function __construct($model) {
-        $this->model = $model;
+    public function __construct($module)
+    {
+        $this->module = $module;
+        $this->model = new BaseModel($module);
     }
 
-    /**
-     * This method is used to display all records.
-     */
-    public function index() {
-        $records = $this->model->getAll();
+    public function index()
+    {
+        $data = $this->model->getAll();
+        include 'views/list.php';
     }
 
-    /**
-     * This method is used to display a single record.
-     */
-    public function show($id) {
-        $record = $this->model->getById($id);
+    public function show($id)
+    {
+        $data = $this->model->getById($id);
+        include 'views/detail.php';
     }
 
-    /**
-     * This method is used to display the form for creating a new record.
-     */
-    public function create() {
+    public function create()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $this->model->create($_POST);
+            header("Location: index.php?module=" . $this->module);
+        } else {
+            include 'views/form.php';
+        }
     }
 
-    /**
-     * This method is used to store a new record in the database.
-     */
-    public function store($data) {
-        $this->model->save($data);
-        $this->index();
+    public function edit($id)
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $this->model->update($id, $_POST);
+            header("Location: index.php?module=" . $this->module);
+        } else {
+            $data = $this->model->getById($id);
+            include 'views/form.php';
+        }
     }
 
-    /**
-     * This method is used to delete a record from the database.
-     */
-    public function delete($id) {
+    public function delete($id)
+    {
         $this->model->delete($id);
-        $this->index();
-    }
-    /**
-     * This method is used to display the form for updating a record.
-     */
-    public function update($id,$data){
-        $this->model->update($id,$data);
-        $this->index();
+        header("Location: index.php?module=" . $this->module);
     }
 }
+
+
+
 

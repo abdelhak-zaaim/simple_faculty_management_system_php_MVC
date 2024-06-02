@@ -80,7 +80,8 @@ class Salle extends BaseModel
         $this->sNumber = $sNumber;
     }
 
-
-
-
+    public function getTable()
+    {
+        return $this->table;
+    }
 }
