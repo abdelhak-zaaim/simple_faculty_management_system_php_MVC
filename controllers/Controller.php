@@ -60,14 +60,15 @@ public function show($id)
     {
         $modules = require 'config/modules.php';
         $curentModule = $this->module;
-        $action = 'edit';
+        $action = 'Edit';
+        $item = $this->model->getById($id);
+        $data = $this->model->getAll();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            $this->model->update($id, $_POST);
-            header("Location: index.php?module=" . $this->module);
-        } else {
 
-            $data = $this->model->getById($id);
+            $this->model->update($id, $_POST);
+            include 'views/home.php';
+        } else {
 
             include 'views/home.php';
         }
@@ -75,16 +76,21 @@ public function show($id)
 
     public function delete($id)
     {
-
+        $modules = require 'config/modules.php';
+        $curentModule = $this->module;
+        $data = $this->model->getAll();
         $this->model->delete($id);
-        header("Location: index.php?module=" . $this->module);
+        include 'views/home.php';
     }
 
     public function store($data)
     {
 
+        $modules = require 'config/modules.php';
+        $curentModule = $this->module;
+        $data = $this->model->getAll();
         $this->model->create($data);
-        header("Location: index.php?module=" . $this->module);
+        include 'views/home.php';
     }
 }
 

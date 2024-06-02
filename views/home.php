@@ -85,39 +85,77 @@
 
 <section class="wrapper">
     <ul class="tabs">
-        <li class="active">Ajouter</li>
+        <?php $action = isset($action) ? $action : 'Ajouter';
+        if ($action == 'Edit') : ?>
+            <li class="active">Edit</li>
+        <?php endif; ?>
+
+        <li class="<?php if ($action!='Edit'):echo 'active' ; endif;?>">Ajouter</li>
+
 
         <li>List des <?php echo $modules[$curentModule]?></li>
     </ul>
 
 
     <ul class="tab__content">
-        <li class="active">
+        <?php if ($action == 'Edit'): ?>
+            <li class="active">
+                <div class="content__wrapper">
+                    <div class="card custom-card">
+                        <div class="card-body">
+                            <h1><?php echo ucfirst($action) . ' ' . ucfirst($this->module); ?></h1>
+                            <form method="post" action="">
+                                <?php $data = isset($data) ? $data : [];
+                                if (isset($data[0]))
+                                    foreach (array_keys($data[0]) as $key) {
+                                        if ($key == 'id') continue; ?>
+                                        <div class="form-group">
+                                            <label for="<?php echo $key; ?>"><?php echo ucfirst($key); ?></label>
+                                            <input type="text" class="form-control" id="<?php echo $key; ?>"
+                                                   name="<?php echo ucfirst($key); ?>"
+                                                   value="<?php echo $action == 'edit' ? $item[$key] : ''; ?>"/>
+                                        </div>
+                                    <?php } ?>
+                                <button type="submit"
+                                        class="btn btn-primary"><?php echo ucfirst($action) . ' ' . $curentModule ?></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        <?php endif; ?>
+
+
+        <li class="<?php if ($action!='Edit'):echo 'active' ; endif;?>">
             <div class="content__wrapper">
 
 
-          <div class="card custom-card">
-    <div class="card-body">
-        <h1><?php
-            $action = isset($action) ? $action : 'Ajouter';
-            echo ucfirst($action) . ' ' . ucfirst($this->module); ?></h1>
-        <form method="post" action="">
-            <?php foreach (array_keys($data[0]) as $key) {
-                if($action == 'edit' && $key == 'id') continue; // Skip 'id' field for 'edit' action
-            ?>
-                <div class="form-group">
-                    <label for="<?php echo $key; ?>"><?php echo ucfirst($key); ?></label>
-                    <input type="text" class="form-control" id="<?php echo $key; ?>" name="<?php echo ucfirst($key); ?>"/>
+                <div class="card custom-card">
+                    <div class="card-body">
+
+
+                        <h1><?php echo 'Ajouter ' . ucfirst($this->module); ?></h1>
+                        <form method="post" action="">
+                            <?php
+                            foreach (array_keys($data[0]) as $key) {
+                                if ($key == 'id') continue; ?>
+                                <div class="form-group">
+                                    <label for="<?php echo $key; ?>"><?php echo ucfirst($key); ?></label>
+                                    <input type="text" class="form-control" id="<?php echo $key; ?>"
+                                           name="<?php echo ucfirst($key); ?>"
+                                    />
+                                </div>
+                            <?php } ?>
+                            <button type="submit" class="btn btn-primary">
+                                Ajouter <?php echo $curentModule ?></button>
+                        </form>
+                    </div>
                 </div>
-            <?php } ?>
-            <button type="submit" class="btn btn-primary"><?php echo ucfirst($action) . ' ' . $curentModule ?></button>
-        </form>
-    </div>
-</div>
 
 
             </div>
         </li>
+
 
         <li>
             <div class="content__wrapper">

@@ -12,6 +12,8 @@
             <td><?php echo $value; ?></td>
         </tr>
     <?php } ?>
+
+
 </table>
 <a href="index.php?module=<?php echo $this->module; ?>&action=edit&id=<?php echo $data['id']; ?>">Edit</a>
 <a href="index.php?module=<?php echo $this->module; ?>&action=delete&id=<?php echo $data['id']; ?>">Delete</a>
