@@ -4,7 +4,7 @@ class Salle extends BaseModel
 {
     protected $table = 'salle';
 
-    public function __construct($id = null, $name = null, $capacite = null, $sNumber)
+    public function __construct($id = null, $name = null, $capacite = null, $sNumber=null)
     {
         parent::__construct($this->table);
         $this->id = $id;
