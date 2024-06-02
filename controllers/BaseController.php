@@ -1,5 +1,5 @@
 <?php
-require_once '../models/BaseModel.php';
+
 /**
  * This is the base controller class. All other controllers will extend this class.
  * It contains the basic CRUD methods.
