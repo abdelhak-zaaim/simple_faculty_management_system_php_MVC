@@ -1,6 +1,6 @@
 <?php
 
-trait User
+trait Userhh
 {
     public function __construct($id = null, $fName = null,$lName = null, $email = null, $password = null)
     {

@@ -1,15 +1,16 @@
 <?php
 require_once 'config/database.php';
-require_once 'models/BaseModel.php';
-require_once 'controllers/BaseController.php';
+require_once 'models/Model.php';
+require_once 'controllers/Controller.php';
 
 $modules = require 'config/modules.php';
-$module = isset($_GET['module']) ? $_GET['module'] : null;
+$curentModule = isset($_GET['module']) ? $_GET['module'] : key($modules);
+// Set default module to the first one in the array
 $action = isset($_GET['action']) ? $_GET['action'] : 'index';
 $id = isset($_GET['id']) ? $_GET['id'] : null;
 
-if ($module && array_key_exists($module, $modules)) {
-    $controller = new BaseController($module);
+if (array_key_exists($curentModule, $modules)) {
+    $controller = new Controller($curentModule);
     if (method_exists($controller, $action)) {
         if ($id) {
             $controller->$action($id);
@@ -20,6 +21,6 @@ if ($module && array_key_exists($module, $modules)) {
         echo "Action not found!";
     }
 } else {
-    echo "Module not found!";
+    require_once 'views/home.php';
 }
 ?>

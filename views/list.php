@@ -22,7 +22,7 @@
                 <td><?php echo $cell; ?></td>
             <?php } ?>
             <td>
-                <a href="index.php?module=<?php echo $this->module; ?>&action=show&id=<?php echo $row['id']; ?>">View</a>
+                <a href="index.php?c=<?php echo $this->module; ?>&action=show&id=<?php echo $row['id']; ?>">View</a>
                 <a href="index.php?module=<?php echo $this->module; ?>&action=edit&id=<?php echo $row['id']; ?>">Edit</a>
                 <a href="index.php?module=<?php echo $this->module; ?>&action=delete&id=<?php echo $row['id']; ?>">Delete</a>
             </td>
